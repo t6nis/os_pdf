@@ -12,7 +12,7 @@ var request = require('request'),
     
 // Params.
 var domain = 'https://sisu.ut.ee'; // MC Hammer - Can't touch this
-var subsite = '/kohvikus'; // Change OS SubSite
+var subsite = '/measurement'; // Change OS SubSite
 var address = domain+subsite;
 var download_dir = 'downloads'+subsite+'/';
     // Check for dir.
@@ -52,8 +52,9 @@ request(address, function(error, response, body) {
                     }
                 });
                 var head = $('head').html();
+                var customhead = '<style type="text/css">tbody { border-top: 0px !important } .ui-accordion-content { display: block !important; border: 0px !important; } #accordion h3 { border: 0px !important; }</style>';
                 // Write to file.     
-                fs.appendFile(download_dir+'pdf.html', '<html><head>'+head+'</head><body style="font-family: Verdana, sans-serif !important;">', function(err) {
+                fs.appendFile(download_dir+'pdf.html', '<html><head>'+head+customhead+'</head><body style="font-family: Verdana, sans-serif !important;">', function(err) {
                     if (err) {
                         console.log(err);
                     }
@@ -174,7 +175,13 @@ function pageWorker(title, html, doctitle, callback) {
             // 3.Step - Set page content.
             var doccontent = $('#columns #content-column .node-content');
             $('#columns #content-column .node-content iframe').each(function() {
-                 $(this).replaceWith('&nbsp;');
+                $(this).replaceWith('&nbsp;');
+            });
+            $('#columns #content-column .node-content a.jpopup_dialog').each(function() {
+                $(this).replaceWith('&nbsp;');
+            });
+            $('#columns #content-column .node-content table.os-files-other-list').each(function() {
+                $(this).replaceWith('&nbsp;');
             });
             if (doccontent.length > 0) {                
                 doccontent = doccontent.html()+'</div>';
