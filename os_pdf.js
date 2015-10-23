@@ -68,7 +68,8 @@ request(address, function(error, response, body) {
                 var settitle = $('head title').html();
                 var setdesc = $('head meta[name="description"]').attr('content');
                 var setauthor = $('head meta[name="author"]').attr('content');
-                var titlepage = '<div class="resource" style="page-break-after:always;"><div style="margin:auto; margin-top:300px; text-align:center;"><img src="../../ut_hlogo_must_en.png" alt="utlogo" /><h1>'+settitle+'</h1><br />'+setdesc+'<br /><br /><strong>'+setauthor+'</strong></div></div>';
+                //<img src="../../ut_hlogo_must_en.png" alt="utlogo" />
+                var titlepage = '<div class="resource" style="page-break-after:always;"><div style="margin:auto; margin-top:300px; text-align:center;"><h1>'+settitle+'</h1><br />'+setdesc+'<br /><br /><strong>'+setauthor+'</strong></div></div>';
                 console.log('Title page finished...');
                 fs.appendFile(download_dir+'pdf.html', titlepage, function(err) {
                     if (err) {
@@ -181,9 +182,9 @@ function pageWorker(title, html, doctitle, callback) {
             $('#columns #content-column .node-content a.jpopup_dialog').each(function() {
                 $(this).replaceWith('&nbsp;');
             });
-            $('#columns #content-column .node-content table.os-files-other-list a').each(function() {
+            /*$('#columns #content-column .node-content table.os-files-other-list a').each(function() {
                 $(this).replaceWith('<span>'+$(this).html()+'</span>');
-            });
+            });*/
             $('#columns #content-column .node-content a img[src="selftest.png?itok=ag1YII6e"]').each(function() {
                 $(this).replaceWith('&nbsp;');
                 $(this).parent('a').remove();
